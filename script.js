@@ -23,21 +23,25 @@ document.getElementById("downloadBtn").addEventListener("click", async () => {
                     <source src="${videoSource}" type="video/mp4">
                     Browser Anda tidak mendukung pemutaran video.
                 </video>
-                <a id="directDownload" href="${videoSource}" download="TikTok_Video.mp4" class="download-btn">Download Video</a>
+                <a id="directDownload" href="${videoSource}" download="TikTok_Video.mp4" class="download-btn">
+                    Download Video
+                </a>
             `;
 
-            // Memaksa browser mengunduh file
-            document.getElementById("directDownload").addEventListener("click", async (event) => {
-                event.preventDefault();
-                const response = await fetch(videoSource);
-                const blob = await response.blob();
-                const a = document.createElement("a");
-                a.href = URL.createObjectURL(blob);
-                a.download = "CreatedByAkbarz.mp4";
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            });
+            // Tambahkan event listener ke tombol download setelah elemen dibuat
+            setTimeout(() => {
+                document.getElementById("directDownload").addEventListener("click", async (event) => {
+                    event.preventDefault();
+                    const response = await fetch(videoSource);
+                    const blob = await response.blob();
+                    const a = document.createElement("a");
+                    a.href = URL.createObjectURL(blob);
+                    a.download = "TikTok_Video.mp4";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            }, 500);
 
         } else {
             alert("Gagal mengambil video! Coba lagi.");
